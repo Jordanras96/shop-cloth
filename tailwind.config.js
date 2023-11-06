@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage:{
+        camera: "/joshua-hanson-e616t35Vbeg-unsplash.jpg"
+      }
+    },
   },
   plugins: [],
 }

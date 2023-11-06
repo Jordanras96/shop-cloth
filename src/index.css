@@ -2,3 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.card-zoom {
+    @apply relative flex items-center justify-center m-3 overflow-hidden shadow-xl w-full h-60 rounded-lg;
+  }
+  .card-zoom-image {
+    @apply absolute w-full h-full transition-all duration-500 ease-in-out transform bg-center bg-cover;
+  }
+  .card-zoom-text {
+    @apply absolute text-xl text-center bg-white opacity-75 font-black transition-all duration-500 ease-in-out transform scale-150 text-slate-800 ;
+  }
+  .card-zoom:hover .card-zoom-image {
+    @apply scale-110;
+  }
+  .card-zoom:hover .card-zoom-text {
+    @apply scale-100;
+  }
