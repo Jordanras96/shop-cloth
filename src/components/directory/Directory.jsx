@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { CategoryItem } from "../category-item/category-item.component"
 
-const CategoryMenu = ({categories}) => {
+const Directory = ({categories}) => {
   return (
     <div
         id="categories-container"
@@ -14,8 +14,8 @@ const CategoryMenu = ({categories}) => {
   )
 }
 
-CategoryMenu.propTypes = {
+Directory.propTypes = {
     categories: PropTypes.any
 }
 
-export default CategoryMenu
+export default Directory
