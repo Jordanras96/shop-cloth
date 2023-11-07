@@ -40,8 +40,8 @@ export default function App() {
       id="categories-container"
       className="w-full flex flex-wrap justify-between "
     >
-      {categories.map(({title, id, imageUrl, large}) => (
-        <CategoryItem key={id} title={title} imageUrl={imageUrl} large={large}/>
+      {categories.map((category) => ( 
+        <CategoryItem key={category.id} category={category}/>
       ))}
     </div>
   );

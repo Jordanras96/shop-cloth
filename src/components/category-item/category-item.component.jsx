@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 
-export const CategoryItem = ({ title, imageUrl, large }) => {
+export const CategoryItem = ({ category }) => {
+   const {title, imageUrl, large} = category;
+  
   return (
     <>
       <div
@@ -29,7 +31,9 @@ export const CategoryItem = ({ title, imageUrl, large }) => {
 };
 
 CategoryItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  large: PropTypes.bool.isRequired,
+  category: PropTypes.shape({
+    title: PropTypes.string,
+    imageUrl: PropTypes.string,
+    large: PropTypes.bool,
+  }),
 };
