@@ -7,8 +7,8 @@ export const CategoryItem = ({ category }) => {
     <>
       <div
         id={`category-container`}
-        className={`min-w-[30%] h-[240px] flex-auto flex items-center justify-center border border-solid border-black mt-0 mx-[7.5px] mb-[15px] overflow-hidden group group-hover:cursor-pointer ${
-          large ? "h-[380px]" : ""
+        className={`min-w-[30%] h-80 rounded-lg flex-auto flex items-center justify-center shadow-lg shadow-slate-500/75 mt-0 mx-[7.5px] mb-[15px] overflow-hidden group group-hover:cursor-pointer ${
+          large ? "h-96" : ""
         }`}
       >
         <div

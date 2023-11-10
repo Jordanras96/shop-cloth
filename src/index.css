@@ -2,18 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.card-zoom {
-    @apply relative flex items-center justify-center m-3 overflow-hidden shadow-xl w-full h-60 rounded-lg;
+@layer components {
+  input {
+    @apply p-4 my-10 shadow-md  block w-full rounded-sm bg-[#e8e8e8] duration-300 sm:text-sm h-full border-b border-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-gray-700 outline outline-0 transition-all placeholder-shown:border-gray-200  focus:outline-0 disabled:border-0 disabled:bg-gray-50;
   }
-  .card-zoom-image {
-    @apply absolute w-full h-full transition-all duration-500 ease-in-out transform bg-center bg-cover;
+  label {
+    @apply pointer-events-none pl-2 absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-sky-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-sky-500 peer-focus:pl-0 peer-focus:mb-5 peer-focus:after:scale-x-100 peer-focus:after:border-sky-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-gray-500 peer-focus:uppercase;
   }
-  .card-zoom-text {
-    @apply absolute text-xl text-center bg-white opacity-75 font-black transition-all duration-500 ease-in-out transform scale-150 text-slate-800 ;
-  }
-  .card-zoom:hover .card-zoom-image {
-    @apply scale-110;
-  }
-  .card-zoom:hover .card-zoom-text {
-    @apply scale-100;
-  }
+}

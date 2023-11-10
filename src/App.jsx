@@ -1,20 +1,23 @@
-import { useState , useEffect } from "react";
-import Directory from "./components/directory/Directory";
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { Home } from "./routes/home/home.component";
+import Navigation from "./routes/navigation/navigation.component";
+import Signin from "./routes/sign-in/signin.component";
 
 
-export default function App() {
-  const [categories, setCategories] = useState([]);
+const Shop = () => {
+  return <h1>I am the shop page</h1>;
+};
 
-  useEffect(() => {
-    fetch("/src/categories.json")
-      .then((response) => response.json())
-      .then((data) => setCategories(data.categories))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+const App = () => {
   return (
-    <>
-      <Directory categories={categories} />
-    </>
+    <Routes>
+      <Route path="/" element={<Navigation />}>
+        <Route index element={<Home />} />
+        <Route path="shop" element={<Shop />} />
+        <Route path="signin" element={<Signin/>}/>
+      </Route>
+    </Routes>
   );
-}
+};
+
+export default App;
