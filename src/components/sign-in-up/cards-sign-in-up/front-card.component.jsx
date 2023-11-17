@@ -1,19 +1,26 @@
 import PropTypes from "prop-types";
+import { useRef } from "react";
+import "./flip-transition.css";
+import GoogleLogo from "../../svg/GoogleLogo.component copy 3";
+import FacebookLogo from "../../svg/FacebookLogo.component";
+import GithubLogo from "../../svg/GithubLogo.component copy 2";
+import TwitterLogo from "../../svg/TwitterLogo.component copy";
 import {
   signInWithGooglePopup,
   createUserProfileDocumentFromAuth,
 } from "../../../utils/firebase/firebase.utils";
-import "./card.css";
-import "./flip-transition.css";
-import { useRef } from "react";
+import Button from "../../button/button.component";
 
 const FrontCard = ({ handleClickFront }) => {
-  const frontCardRef = useRef(null)
+  const frontCardRef = useRef(null);
 
   const logGoogleUser = async () => {
-    const {user} = await signInWithGooglePopup();
+    const { user } = await signInWithGooglePopup();
     const userDocRef = await createUserProfileDocumentFromAuth(user);
+    console.log(user);
+    console.log(userDocRef);
   };
+
   return (
     <div
       ref={frontCardRef}
@@ -27,8 +34,8 @@ const FrontCard = ({ handleClickFront }) => {
         <span className="text-lg text-slate-400 mt-7 mb-5">
           Stay update on your favorite cloth shop news
         </span>
-        <div id="form-front" className="my-2">
-          <div className="relative h-11 w-full min-w-[200px]">
+        <div id="form-front" className="mt-2">
+          <div className="relative h-14 w-full min-w-[200px]">
             <input
               type="email"
               name="email"
@@ -37,7 +44,7 @@ const FrontCard = ({ handleClickFront }) => {
             />
             <label className="after:content[' ']">Email</label>
           </div>
-          <div className="relative h-11 w-full min-w-[200px] my-2">
+          <div className="relative h-14 w-full min-w-[200px]">
             <input
               type="password"
               name="password"
@@ -46,22 +53,24 @@ const FrontCard = ({ handleClickFront }) => {
             />
             <label className="after:content[' ']">Password</label>
           </div>
-          <div className="flex justify-between text-sm space-x-5 pt-14 my-2">
-            <button className="group relative h-[70px] w-full overflow-hidden rounded-lg bg-white text-sm shadow">
-              <div className="absolute inset-0 w-3 bg-black transition-all duration-300 ease-out group-hover:w-full"></div>
-              <span className="relative text-black group-hover:text-white uppercase text-xl">
-                Sign in
-              </span>
-            </button>
-            <button
-              className="group relative h-[70px] w-full overflow-hidden rounded-lg bg-white text-xl shadow"
-              onClick={logGoogleUser}
-            >
-              <div className="absolute inset-0 w-3 bg-blue-500 transition-all duration-300 ease-out group-hover:w-full"></div>
-              <span className="relative text-black group-hover:text-white uppercase">
-                Sign in with google
-              </span>
-            </button>
+          <div className="flex flex-col justify-between text-sm pt-14 divide-y-2">
+            <div id="up-side" className="pb-5">
+              <Button.Regular>Sign in</Button.Regular>
+            </div>
+            <div id="down-side" className="pt-5 flex justify-between">
+              <button className="" onClick={logGoogleUser}>
+                <GoogleLogo />
+              </button>
+              <button className="">
+                <FacebookLogo />
+              </button>
+              <button className="">
+                <TwitterLogo />
+              </button>
+              <button className="">
+                <GithubLogo />
+              </button>
+            </div>
           </div>
         </div>
         <span className="text-lg text-slate-400 my-2 cursor-pointer mt-10 text-center">

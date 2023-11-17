@@ -1,5 +1,4 @@
-import "./flippable-card.css";
-import Card from "./cards/card.component";
+import Card from "./cards-sign-in-up/card.component";
 import { CSSTransition } from "react-transition-group";
 import { useRef, useState } from "react";
 
@@ -28,7 +27,6 @@ function FlippableCard() {
       >
         <Card
           ref={nodeRef}
-         
           handleClickFront={handleClickFront}
           handleClickBack={handleClickBack}
         />

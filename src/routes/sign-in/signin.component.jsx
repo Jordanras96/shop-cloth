@@ -1,4 +1,4 @@
-import FlippableCard from "../../components/flip-card/flippable-card.component";
+import FlippableCard from "../../components/sign-in-up/flippable-card.component";
 
 const Signin = () => {
   return (

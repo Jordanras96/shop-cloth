@@ -21,21 +21,21 @@ const Navigation = () => {
           <Link
             id="nav-link"
             to="/shop"
-            className="px-[10px] py-[15px] cursor-pointer"
+            className="px-[10px] py-[15px] cursor-pointer text-xl hover:underline hover:underline-offset-4"
           >
             Shop
           </Link>
           <Link
             id="nav-link"
             to="/contat"
-            className="px-[10px] py-[15px] cursor-pointer"
+            className="px-[10px] py-[15px] cursor-pointer text-xl hover:underline hover:underline-offset-4"
           >
             Contact
           </Link>
           <Link 
             id="nav-link"
             to="/signin"
-            className="px-[10px] py-[15px] cursor-pointer"
+            className="px-[10px] py-[15px] cursor-pointer text-xl hover:underline hover:underline-offset-4"
           >
             Sign in
           </Link>
