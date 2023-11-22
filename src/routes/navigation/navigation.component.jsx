@@ -34,7 +34,7 @@ const Navigation = () => {
           </Link>
           <Link 
             id="nav-link"
-            to="/signin"
+            to="/auth"
             className="px-[10px] py-[15px] cursor-pointer text-xl hover:underline hover:underline-offset-4"
           >
             Sign in

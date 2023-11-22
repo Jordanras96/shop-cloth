@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import {
   createAuthUserWithEmailAndPassword,
   createUserProfileDocumentFromAuth,
-} from "../../../utils/firebase/firebase.utils";
-import Button from "../../button/button.component";
+} from "../../utils/firebase/firebase.utils";
+import Button from "../button/button.component";
 
 const defaultFormFields = {
   displayName: "",
@@ -22,7 +22,6 @@ const BackCard = ({ handleClickBack }) => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log(formFields);
 
   const resetFormField = () => {
     setFormFields(defaultFormFields);
@@ -42,7 +41,7 @@ const BackCard = ({ handleClickBack }) => {
       );
       await createUserProfileDocumentFromAuth(user, { displayName });
       alert("create with succes");
-      resetFormField;
+      resetFormField();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");

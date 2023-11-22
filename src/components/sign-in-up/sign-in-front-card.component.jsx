@@ -1,24 +1,70 @@
 import PropTypes from "prop-types";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./flip-transition.css";
-import GoogleLogo from "../../svg/GoogleLogo.component copy 3";
-import FacebookLogo from "../../svg/FacebookLogo.component";
-import GithubLogo from "../../svg/GithubLogo.component copy 2";
-import TwitterLogo from "../../svg/TwitterLogo.component copy";
+import GoogleLogo from "../svg/GoogleLogo.component copy 3";
+import FacebookLogo from "../svg/FacebookLogo.component";
+import GithubLogo from "../svg/GithubLogo.component copy 2";
+import TwitterLogo from "../svg/TwitterLogo.component copy";
 import {
+  signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
   createUserProfileDocumentFromAuth,
-} from "../../../utils/firebase/firebase.utils";
-import Button from "../../button/button.component";
+} from "../../utils/firebase/firebase.utils";
+import Button from "../button/button.component";
+
+const defaultFormFields = {
+  email: "",
+  password: "",
+};
 
 const FrontCard = ({ handleClickFront }) => {
   const frontCardRef = useRef(null);
 
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { email, password } = formFields;
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      console.log(response);
+      resetFormFields();
+      alert("login succes");
+    } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          alert("Invalid Email");
+          break;
+        case "auth/user-disabled":
+          alert("Account disabled");
+          break;
+        case "auth/wrong-password":
+          alert("Wrong Password");
+          break;
+        default:
+          console.log(error);
+      }
+    }
+
+    resetFormFields();
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
+
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
     const userDocRef = await createUserProfileDocumentFromAuth(user);
-    console.log(user);
-    console.log(userDocRef);
   };
 
   return (
@@ -34,13 +80,16 @@ const FrontCard = ({ handleClickFront }) => {
         <span className="text-lg text-slate-400 mt-7 mb-5">
           Stay update on your favorite cloth shop news
         </span>
-        <div id="form-front" className="mt-2">
+        <form id="form-front" className="mt-2" onSubmit={handleSubmit}>
           <div className="relative h-14 w-full min-w-[200px]">
             <input
               type="email"
               name="email"
+              value={email}
+              onChange={handleChange}
               placeholder=" "
               className="peer pt-0 mt-0"
+              required
             />
             <label className="after:content[' ']">Email</label>
           </div>
@@ -48,8 +97,11 @@ const FrontCard = ({ handleClickFront }) => {
             <input
               type="password"
               name="password"
+              value={password}
+              onChange={handleChange}
               placeholder=" "
               className="peer"
+              required
             />
             <label className="after:content[' ']">Password</label>
           </div>
@@ -58,7 +110,7 @@ const FrontCard = ({ handleClickFront }) => {
               <Button.Regular>Sign in</Button.Regular>
             </div>
             <div id="down-side" className="pt-5 flex justify-between">
-              <button className="" onClick={logGoogleUser}>
+              <button type="button" onClick={logGoogleUser}>
                 <GoogleLogo />
               </button>
               <button className="">
@@ -72,7 +124,7 @@ const FrontCard = ({ handleClickFront }) => {
               </button>
             </div>
           </div>
-        </div>
+        </form>
         <span className="text-lg text-slate-400 my-2 cursor-pointer mt-10 text-center">
           New to Shop Cloth ?
           <span

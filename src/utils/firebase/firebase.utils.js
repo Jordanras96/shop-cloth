@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signInWithPopup,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
@@ -25,6 +26,7 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
+
 
 export const signInWithGooglePopup = async () =>
   await signInWithPopup(auth, googleProvider);
@@ -61,4 +63,8 @@ export const createUserProfileDocumentFromAuth = async (
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return; // protection de la bdd
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return; // protection de la bdd
+  return await signInWithEmailAndPassword(auth, email, password);
 };
