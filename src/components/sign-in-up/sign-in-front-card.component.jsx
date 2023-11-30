@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import "./flip-transition.css";
 import GoogleLogo from "../svg/GoogleLogo.component copy 3";
 import FacebookLogo from "../svg/FacebookLogo.component";
@@ -10,7 +10,9 @@ import {
   signInWithGooglePopup,
   createUserProfileDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
+import { UserContext } from "../../contexts/user.context";
 import Button from "../button/button.component";
+import toast from "react-hot-toast";
 
 const defaultFormFields = {
   email: "",
@@ -23,6 +25,8 @@ const FrontCard = ({ handleClickFront }) => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const {setCurrentUser } = useContext(UserContext)
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -31,30 +35,28 @@ const FrontCard = ({ handleClickFront }) => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const {user} = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      setCurrentUser(user)
       resetFormFields();
-      alert("login succes");
+      toast.success('Successfully log');
     } catch (error) {
       switch (error.code) {
         case "auth/invalid-email":
-          alert("Invalid Email");
+          toast.error("Invalid Email");
           break;
         case "auth/user-disabled":
-          alert("Account disabled");
+          toast.error("Account disabled");
           break;
         case "auth/wrong-password":
-          alert("Wrong Password");
+          toast.error("Wrong Password");
           break;
         default:
-          console.log(error);
+          toast.error(error.message);
       }
     }
-
-    resetFormFields();
   };
 
   const handleChange = (event) => {
@@ -90,8 +92,10 @@ const FrontCard = ({ handleClickFront }) => {
               placeholder=" "
               className="peer pt-0 mt-0"
               required
+              autoComplete=" "
+              id="email"
             />
-            <label className="after:content[' ']">Email</label>
+            <label className="after:content[' ']" htmlFor="email">Email</label>
           </div>
           <div className="relative h-14 w-full min-w-[200px]">
             <input
@@ -102,8 +106,10 @@ const FrontCard = ({ handleClickFront }) => {
               placeholder=" "
               className="peer"
               required
+              autoComplete=" "
+              id="password"
             />
-            <label className="after:content[' ']">Password</label>
+            <label className="after:content[' ']" htmlFor="password">Password</label>
           </div>
           <div className="flex flex-col justify-between text-sm pt-14 divide-y-2">
             <div id="up-side" className="pb-5">

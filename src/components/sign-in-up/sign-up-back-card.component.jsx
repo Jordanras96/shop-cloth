@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 
+import { UserContext } from "../../contexts/user.context";
 import "./flip-transition.css";
 
 import PropTypes from "prop-types";
@@ -8,6 +9,7 @@ import {
   createUserProfileDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import Button from "../button/button.component";
+import toast from "react-hot-toast";
 
 const defaultFormFields = {
   displayName: "",
@@ -22,6 +24,9 @@ const BackCard = ({ handleClickBack }) => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  const {setCurrentUser} = useContext(UserContext)
+
+  console.log('hit')
 
   const resetFormField = () => {
     setFormFields(defaultFormFields);
@@ -30,7 +35,7 @@ const BackCard = ({ handleClickBack }) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -39,13 +44,15 @@ const BackCard = ({ handleClickBack }) => {
         email,
         password
       );
+      setCurrentUser(user)
       await createUserProfileDocumentFromAuth(user, { displayName });
-      alert("create with succes");
+      toast.success("create with succes");
       resetFormField();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        alert("Cannot create user, email already in use");
+        toast.error("Cannot create user, email already in use");
       }
+      toast.error("user creation encountered an error", error);
       console.log("user creation encountered an error", error);
     }
   };
@@ -81,8 +88,10 @@ const BackCard = ({ handleClickBack }) => {
               onChange={handleChange}
               placeholder=" "
               className="peer pt-0 mt-0"
+              autoComplete=" "
+              id="name"
             />
-            <label className="after:content[' ']">Display Name</label>
+            <label className="after:content[' ']" htmlFor="name">Display Name</label>
           </div>
           <div className="relative h-14 w-full min-w-[200px]">
             <input
@@ -93,8 +102,10 @@ const BackCard = ({ handleClickBack }) => {
               onChange={handleChange}
               placeholder=" "
               className="peer"
+              autoComplete=" "
+              id="email"
             />
-            <label className="after:content[' ']">Email</label>
+            <label className="after:content[' ']" htmlFor="email">Email</label>
           </div>
           <div className="relative h-14 w-full min-w-[200px]">
             <input
@@ -105,8 +116,10 @@ const BackCard = ({ handleClickBack }) => {
               onChange={handleChange}
               placeholder=" "
               className="peer"
+              autoComplete=" "
+              id="password"
             />
-            <label className="after:content[' ']">Password</label>
+            <label className="after:content[' ']" htmlFor="password">Password</label>
           </div>
           <div className="relative h-14 w-full min-w-[200px]">
             <input
@@ -117,8 +130,10 @@ const BackCard = ({ handleClickBack }) => {
               onChange={handleChange}
               placeholder=" "
               className="peer"
+              autoComplete=" "
+              id="confirmPassword"
             />
-            <label className="after:content[' ']">Confirm Password</label>
+            <label className="after:content[' ']" htmlFor="confirmPassword">Confirm Password</label>
           </div>
           <div className="flex justify-between text-sm pt-10">
             <Button.Invert>Join us</Button.Invert>

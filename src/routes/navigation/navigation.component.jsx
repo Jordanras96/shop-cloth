@@ -1,7 +1,21 @@
+import { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import {ReactComponent as CrwnLogo} from '../../assets/crown.svg'
+import { UserContext } from "../../contexts/user.context";
+import toast from "react-hot-toast";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Navigation = () => {
+  const {currentUser, setCurrentUser} = useContext(UserContext)
+
+  const handleSignOut = async () => {
+    
+    await signOutUser()
+    setCurrentUser(null)
+    toast('Good Bye', {
+      icon:'👋'
+    })
+  }
   return (
     <>
       <div
@@ -32,6 +46,12 @@ const Navigation = () => {
           >
             Contact
           </Link>
+          { currentUser ? (
+            <>
+              <button onClick={handleSignOut} className="px-[10px] py-[15px] cursor-pointer text-xl bg-red-700 rounded-md">Sign out</button>
+              <span className="px-[10px] py-[15px] cursor-pointer text-xl hover:underline-offset-4">{currentUser.email}</span>
+            </>
+          ): (
           <Link 
             id="nav-link"
             to="/auth"
@@ -39,6 +59,8 @@ const Navigation = () => {
           >
             Sign in
           </Link>
+
+          )}
         </div>
       </div>
       <Outlet />
