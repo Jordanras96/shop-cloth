@@ -93,9 +93,9 @@ const FrontCard = ({ handleClickFront }) => {
               className="peer pt-0 mt-0"
               required
               autoComplete=" "
-              id="email"
+              id="emailIn"
             />
-            <label className="after:content[' ']" htmlFor="email">Email</label>
+            <label className="after:content[' ']" htmlFor="emailIn">Email</label>
           </div>
           <div className="relative h-14 w-full min-w-[200px]">
             <input
@@ -107,9 +107,9 @@ const FrontCard = ({ handleClickFront }) => {
               className="peer"
               required
               autoComplete=" "
-              id="password"
+              id="passwordIn"
             />
-            <label className="after:content[' ']" htmlFor="password">Password</label>
+            <label className="after:content[' ']" htmlFor="passwordIn">Password</label>
           </div>
           <div className="flex flex-col justify-between text-sm pt-14 divide-y-2">
             <div id="up-side" className="pb-5">
